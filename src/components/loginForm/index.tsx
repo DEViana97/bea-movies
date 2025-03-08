@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 export default function LoginForm() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const router = useRouter();
   
 
@@ -17,7 +17,6 @@ export default function LoginForm() {
     e.preventDefault();
     try {
       await login(email, password);
-      router.push('/');
     } catch (error) {
       console.error(error);
       throw new Error('Erro ao fazer login');
@@ -42,7 +41,7 @@ export default function LoginForm() {
               <input
                 id="email"
                 name="email"
-                type="email"
+                type="text"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email"
@@ -72,7 +71,7 @@ export default function LoginForm() {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Entrar
+              {loading ? 'Carregando...' : 'Entrar'}
             </button>
           </div>
         </form>

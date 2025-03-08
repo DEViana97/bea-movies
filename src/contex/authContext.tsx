@@ -1,63 +1,86 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { 
-  User,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from 'firebase/auth';
-import { auth } from '../../firebase';
+"use client";
+import { redirect, useRouter } from 'next/navigation';
+import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
+import { authService } from '../services/authServices';
+
+interface User {
+  id: string;
+  username: string;
+}
 
 interface AuthContextType {
   user: User | null;
+  loading: boolean;
+  error: string | null;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string) => Promise<void>;
-  logout: () => Promise<void>;
+  logout: () => void;
+  setUser: (any:any) => void;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function useAuth() {
-  return useContext(AuthContext);
-}
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  // const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
+    const checkUserLoggedIn = async () => {
+      setLoading(true);
+      try {
+        const currentUser = await authService.getCurrentUser();
+        setUser(currentUser);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    return unsubscribe;
+    checkUserLoggedIn();
   }, []);
 
-  async function register(email: string, password: string) {
-    await createUserWithEmailAndPassword(auth, email, password);
-  }
+  useEffect(() => {
+    console.log("useEffect user AuthProvider", user);
+  }, [user, loading]);
 
-  
-  const login = async (email: string, password: string) => {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    setUser(userCredential.user);
+
+  const login = async (username: string, password: string) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const loggedInUser = await authService.login(username, password);
+      console.log("Logged", loggedInUser)
+      setUser(loggedInUser.data.user); 
+      router.push('/movies');
+    } catch (err: any) {
+      setError(err.message);
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  async function logout() {
-    await signOut(auth);
-  }
-
-  const value = {
-    user,
-    login,
-    register,
-    logout
+  const logout = () => {
+    authService.logout();
+    setUser(null);
+    router.push('/login');
   };
 
   return (
-    <AuthContext.Provider value={value}>
-      {!loading && children}
+    <AuthContext.Provider value={{ user, setUser, loading, error, login, logout }}>
+      {children}
     </AuthContext.Provider>
   );
+}
+
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 }
