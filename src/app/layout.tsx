@@ -4,16 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "../contex/authContext";
 import GlobalStyles from "../styles/GlobalStyles";
+import { ThemeContextProvider } from "../contex/ThemeContext";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 
 export default function RootLayout({
@@ -23,12 +15,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+     <ThemeContextProvider>
+      <body>
         <GlobalStyles />
       <AuthProvider>
         {children}
       </AuthProvider>
       </body>
+      </ThemeContextProvider>
     </html>
   );
 }
