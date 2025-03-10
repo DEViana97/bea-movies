@@ -52,15 +52,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(true);
     setError(null);
     try {
-      const loggedInUser = await authService.login(username, password);
-      console.log("Logged", loggedInUser)
+      const loggedInUser = await authService.login(username, password); 
       setUser(loggedInUser.data.user); 
       router.push('/movies');
     } catch (err: any) {
       setError(err.message);
       setUser(null);
-    } finally {
-      setLoading(false);
     }
   };
 

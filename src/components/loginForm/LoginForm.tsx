@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { ContainerWrapper, ContentWrapper } from './loginForm.styled';
 import { Input } from '../input/Input';
 import { Button } from '../button/Button';
+import Loading from '../loading/Loading';
 
 
 export default function LoginForm() {
@@ -28,7 +29,8 @@ export default function LoginForm() {
 
   return (
     <ContainerWrapper>
-      <ContentWrapper>
+      {loading ? <Loading /> : (
+        <ContentWrapper>
         <div>
           <h2>
             BeaMovies
@@ -42,7 +44,7 @@ export default function LoginForm() {
               name="usuario"
               placeholder="Usuário"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              onChange={(e) => setUsername(e.target.value.toLowerCase())}
             />
             <Input
               label="Senha"
@@ -67,6 +69,7 @@ export default function LoginForm() {
           </div>
         </form>
       </ContentWrapper>
+      )}
     </ContainerWrapper>
   );
 }
