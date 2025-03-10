@@ -10,6 +10,13 @@ const lightTheme: Theme = {
     selected: "#E0E9FF",
     tableHead:"#F1F3F9",
   },
+  chihiroBackground: {
+    default: "#0b1828",
+    secondary: "#0e1d32",
+    light: "	#909485",
+    disabled: "#F0F2F4",
+    selected: "#E0E9FF"
+  },
   backgroundNeutral: {
     default: "#F0F2F4",
     hover: "#E5E7EB",

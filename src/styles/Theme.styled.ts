@@ -8,6 +8,13 @@ export default interface Theme {
     selected: string;
     tableHead: string,
   };
+  chihiroBackground: {
+    default: string;
+    secondary: string;
+    light: string;
+    disabled: string;
+    selected: string
+  }
   backgroundNeutral: {
     default: string;
     hover: string;
