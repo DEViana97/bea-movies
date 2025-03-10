@@ -18,4 +18,9 @@ background: ${props => props.theme.chihiroBackground.secondary};
 border-radius: 10px;
 box-shadow: 0 0 10px rgba(144,148,133,0.3);
 gap: 1rem;
+
+@media (max-width: 768px) {
+  width: 95vw;
+}
+
 `
