@@ -18,6 +18,11 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
+  if (pathname === '/' && !token) {
+    const loginUrl = new URL('/login', request.url);
+    return NextResponse.redirect(loginUrl);
+  }
+
   const authRoutes = ['/login'];
   const isAuthRoute = authRoutes.includes(pathname);
   if (token && isAuthRoute) {
