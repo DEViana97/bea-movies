@@ -18,6 +18,16 @@ background: ${props => props.theme.chihiroBackground.secondary};
 border-radius: 10px;
 box-shadow: 0 0 10px rgba(144,148,133,0.3);
 gap: 1rem;
+z-index: 1;
+
+& form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 60%;
+  padding: 2rem;
+  border-radius: 8px;
+}
 
 @media (max-width: 768px) {
   width: 95vw;

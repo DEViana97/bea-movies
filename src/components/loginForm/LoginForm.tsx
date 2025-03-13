@@ -1,20 +1,46 @@
 'use client'
 
 import { useAuth } from '../../contex/authContext';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ContainerWrapper, ContentWrapper } from './loginForm.styled';
 import { Input } from '../input/Input';
 import { Button } from '../button/Button';
 import Loading from '../loading/Loading';
+import { Bubble } from '../animation/HeartAnimation';
 
 
 export default function LoginForm() {
   const [username, setUsername] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { login, loading } = useAuth();
-  const router = useRouter();
+
+  const [bubbles, setBubbles] = useState<{ x: number; y: number }[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const generateRandomPosition = () => {
+    if (containerRef.current) {
+      const containerWidth = containerRef.current.clientWidth;
+      const containerHeight = containerRef.current.clientHeight;
+
+      const maxBubbleSize = 150;
+
+      const x = Math.random() * (containerWidth - maxBubbleSize);
+      const y = Math.random() * (containerHeight - maxBubbleSize);
+
+      return { x, y };
+    }
+    return { x: 0, y: 0 };
+  };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const newBubble = generateRandomPosition();
+      setBubbles(prevBubbles => [...prevBubbles, newBubble]);
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
 
   async function handleSubmit(e: React.FormEvent) {
@@ -22,54 +48,60 @@ export default function LoginForm() {
     try {
       await login(username, password);
     } catch (error) {
-      console.error(error);
       throw new Error('Erro ao fazer login');
     }
   }
 
   return (
-    <ContainerWrapper>
+    <ContainerWrapper ref={containerRef}>
       {loading ? <Loading /> : (
         <ContentWrapper>
-        <div>
-          <h2>
-            BeaMovies
-          </h2>
-        </div>
-        <form style={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '60%', padding: '2rem', borderRadius: '8px' }} onSubmit={handleSubmit}>
           <div>
-            <Input
-              label="Usuário"
-              id="usuario"
-              name="usuario"
-              placeholder="Usuário"
-              value={username}
-              onChange={(e) => setUsername(e.target.value.toLowerCase())}
-            />
-            <Input
-              label="Senha"
-              id="password"
-              name="password"
-              type="password"
-              required
-              placeholder="Senha"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <h2>
+              BeaMovies
+            </h2>
           </div>
+          <form onSubmit={handleSubmit}>
+            <div>
+              <Input
+                label="Usuário"
+                id="usuario"
+                name="usuario"
+                placeholder="Usuário"
+                value={username}
+                onChange={(e) => setUsername(e.target.value.toLowerCase())}
+              />
+              <Input
+                label="Senha"
+                id="password"
+                name="password"
+                type="password"
+                required
+                placeholder="Senha"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-          <div style={{ display: 'flex', width: '100%', justifyContent: 'center' }}>
-            <Button
-             type="submit" 
-             width="100%"
-             variant='secondary'
-             disabled={loading}>
-            {loading ? 'Carregando...' : 'Entrar'}
-            </Button>
-          </div>
-        </form>
-      </ContentWrapper>
+            <div>
+              <Button
+                type="submit"
+                width="100%"
+                variant='secondary'
+                disabled={loading}>
+                {loading ? 'Carregando...' : 'Entrar'}
+              </Button>
+            </div>
+          </form>
+        </ContentWrapper>
       )}
+      {bubbles.map((bubble, index) => (
+        <Bubble key={index}
+          x={bubble.x}
+          y={bubble.y}
+          containerWidth={containerRef.current?.clientWidth || 0}
+          containerHeight={containerRef.current?.clientHeight || 0} />
+      ))}
     </ContainerWrapper>
   );
 }
