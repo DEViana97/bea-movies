@@ -18,7 +18,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  if (pathname === '/' && !token) {
+  if (pathname === '/') {
     const loginUrl = new URL('/login', request.url);
     return NextResponse.redirect(loginUrl);
   }
