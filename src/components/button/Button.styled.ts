@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: 'primary' | 'secondary';
+  $variantType?: 'primary' | 'secondary';
   width?: string;
 }
 

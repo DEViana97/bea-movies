@@ -10,7 +10,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   return (
-    <StyledButton variant={variant} width={width} type={type} {...props}>
+    <StyledButton $variantType={variant} width={width} type={type} {...props}>
       {children}
     </StyledButton>
   );
