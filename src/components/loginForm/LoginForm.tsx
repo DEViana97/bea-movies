@@ -4,9 +4,9 @@ import { useAuth } from '../../contex/authContext';
 import React, { useEffect, useRef, useState } from 'react';
 import { ContainerWrapper, ContentWrapper } from './loginForm.styled';
 import { Input, InputTypes } from '../input/Input';
-import { Button } from '../button/Button';
 import { Bubble } from '../animation/HeartAnimation';
 import HamsterLoading from '../hamsterLoading/HamsterLoading';
+import LoginButton from '../button/LoginButton';
 
 
 export default function LoginForm() {
@@ -85,13 +85,9 @@ export default function LoginForm() {
             </div>
 
             <div>
-              <Button
-                type="submit"
-                width="100%"
-                variant='secondary'
-                disabled={loading}>
-                {loading ? 'Carregando...' : 'Entrar'}
-              </Button>
+              <LoginButton
+                handleSubmit={handleSubmit}
+                />
             </div>
           </form>
         </ContentWrapper>
