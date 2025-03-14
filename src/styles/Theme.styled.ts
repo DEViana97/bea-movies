@@ -20,7 +20,8 @@ export default interface Theme {
     secondary: string;
     terciary: string;
     disabled: string;
-    selected: string
+    selected: string;
+    defaultTransparent: string;
   }
   backgroundNeutral: {
     default: string;

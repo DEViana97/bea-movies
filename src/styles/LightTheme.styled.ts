@@ -22,7 +22,8 @@ const lightTheme: Theme = {
     secondary: "#E53888",
     terciary: "#F37199",
     disabled: "#F0F2F4",
-    selected: "#F7A8C4"
+    selected: "#F7A8C4",
+    defaultTransparent: "rgba(243, 113, 153, 0.6)",
   },
   backgroundNeutral: {
     default: "#F0F2F4",
