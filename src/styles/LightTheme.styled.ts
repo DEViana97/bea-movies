@@ -17,6 +17,13 @@ const lightTheme: Theme = {
     disabled: "#F0F2F4",
     selected: "#E0E9FF"
   },
+  barbieTheme: {
+    default: "#AC1754",
+    secondary: "#E53888",
+    terciary: "#F37199",
+    disabled: "#F0F2F4",
+    selected: "#F7A8C4"
+  },
   backgroundNeutral: {
     default: "#F0F2F4",
     hover: "#E5E7EB",

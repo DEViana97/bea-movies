@@ -15,6 +15,13 @@ export default interface Theme {
     disabled: string;
     selected: string
   }
+  barbieTheme: {
+    default: string;
+    secondary: string;
+    terciary: string;
+    disabled: string;
+    selected: string
+  }
   backgroundNeutral: {
     default: string;
     hover: string;
