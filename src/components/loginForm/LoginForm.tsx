@@ -4,7 +4,7 @@ import { useAuth } from '../../contex/authContext';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { ContainerWrapper, ContentWrapper } from './loginForm.styled';
-import { Input } from '../input/Input';
+import { Input, InputTypes } from '../input/Input';
 import { Button } from '../button/Button';
 import Loading from '../loading/Loading';
 import { Bubble } from '../animation/HeartAnimation';
@@ -66,6 +66,7 @@ export default function LoginForm() {
               <Input
                 label="Usuário"
                 id="usuario"
+                typeInput={InputTypes.default}
                 name="usuario"
                 placeholder="Usuário"
                 value={username}
@@ -74,6 +75,7 @@ export default function LoginForm() {
               <Input
                 label="Senha"
                 id="password"
+                typeInput={InputTypes.default}
                 name="password"
                 type="password"
                 required
