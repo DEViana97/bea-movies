@@ -3,5 +3,5 @@ export interface Movie {
   name: string;
   image: string;
   status: string;
-  starRating: number | null;
+  starRating: number;
 }
