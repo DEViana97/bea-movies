@@ -3,18 +3,31 @@
 import React, { InputHTMLAttributes } from 'react';
 import { InputWrapper, Label, StyledInput } from './Input.styled';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  label?: string; // Texto do label
-  id: string; // Obrigatório para associar label e input
-  name?: string; // Opcional, mas útil para formulários
+export enum InputTypes {
+  primary,
+  secondary,
+  terciary,
+  delete,
+  critical,
+  disabled,
+  transparent,
+  default
 }
 
 
-export function Input({ label, id, name, type = 'text', ...props }: InputProps) {
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  label?: string; 
+  id: string; 
+  name?: string;
+  typeInput: InputTypes;
+}
+
+
+export function Input({ label, id, name, typeInput, ...props }: InputProps) {
   return (
     <InputWrapper>
       {label && <Label htmlFor={id}>{label}</Label>}
-      <StyledInput  id={id} name={name || id} type={type} {...props} />
+      <StyledInput id={id} name={name || id} $typeInput={typeInput} {...props} />
     </InputWrapper>
   );
 }
