@@ -1,13 +1,12 @@
 'use client'
 
 import { useAuth } from '../../contex/authContext';
-import { useRouter } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 import { ContainerWrapper, ContentWrapper } from './loginForm.styled';
 import { Input, InputTypes } from '../input/Input';
 import { Button } from '../button/Button';
-import Loading from '../loading/Loading';
 import { Bubble } from '../animation/HeartAnimation';
+import HamsterLoading from '../hamsterLoading/HamsterLoading';
 
 
 export default function LoginForm() {
@@ -54,7 +53,7 @@ export default function LoginForm() {
 
   return (
     <ContainerWrapper ref={containerRef}>
-      {loading ? <Loading /> : (
+      {loading ? <HamsterLoading/>: (
         <ContentWrapper>
           <div>
             <h2>
