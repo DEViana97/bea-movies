@@ -46,6 +46,7 @@ export const StyledInput = styled.input<{ $typeInput: InputTypes }>`
   }
   &:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(224, 233, 255, 0.7); /* Efeito de foco */
+    border: 1px solid ${({ theme }) => theme.barbieTheme.default};
+    box-shadow: 0 0 0 2px rgba(224, 233, 255, 0.1); /* Efeito de foco */
   }
 `;
