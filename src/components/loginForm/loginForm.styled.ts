@@ -5,7 +5,7 @@ display: flex;
 justify-content: center; 
 align-items: center;
 height: 100vh;
-background: ${props => props.theme.barbieTheme.default} no-repeat bottom url('/wave.svg');
+background: ${props => props.theme.barbieTheme.selected} no-repeat bottom url('/wave.svg');
 `
 export const ContentWrapper = styled.div`
 display: flex;
