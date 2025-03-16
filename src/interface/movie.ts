@@ -2,6 +2,6 @@ export interface Movie {
   id: number;
   name: string;
   image: string;
-  status: string;
+  status: boolean;
   starRating: number;
 }
