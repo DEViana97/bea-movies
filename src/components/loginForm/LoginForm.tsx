@@ -3,10 +3,11 @@
 import { useAuth } from '../../contex/authContext';
 import React, { useEffect, useRef, useState } from 'react';
 import { ContainerWrapper, ContentWrapper } from './loginForm.styled';
-import { Input, InputTypes } from '../input/Input';
+// import { Input, InputTypes } from '../input/Input';
 import { Bubble } from '../animation/HeartAnimation';
 import HamsterLoading from '../hamsterLoading/HamsterLoading';
 import LoginButton from '../button/LoginButton';
+import Input, { InputTypes } from '../input/Input';
 
 
 export default function LoginForm() {
@@ -53,41 +54,32 @@ export default function LoginForm() {
 
   return (
     <ContainerWrapper ref={containerRef}>
-      {loading ? <HamsterLoading/>: (
+      {loading ? <HamsterLoading /> : (
         <ContentWrapper>
-          <div>
-            <h2>
-              BeaMovies
-            </h2>
-          </div>
           <form onSubmit={handleSubmit}>
             <div>
               <Input
-                label="Usuário"
-                id="usuario"
-                typeInput={InputTypes.default}
-                name="usuario"
+                label='Usuário:'
+                type="text"
                 placeholder="Usuário"
                 value={username}
-                onChange={(e) => setUsername(e.target.value.toLowerCase())}
+                onChange={(e) => setUsername(e.target.value)}
+                typeInput={InputTypes.default}
               />
               <Input
-                label="Senha"
-                id="password"
-                typeInput={InputTypes.default}
-                name="password"
-                type="password"
-                required
-                placeholder="Senha"
+                label='Senha:'
+                type='password'
+                placeholder='Senha'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                typeInput={InputTypes.default}
               />
             </div>
 
             <div>
               <LoginButton
                 handleSubmit={handleSubmit}
-                />
+              />
             </div>
           </form>
         </ContentWrapper>
