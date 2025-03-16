@@ -16,6 +16,10 @@ const GlobalStyles = createGlobalStyle`
     padding: 0;
   }
 
+  body {
+    background-color: #F7A8C4;
+  }
+
   /* Reset form elements */
   button, input, select, textarea {
     font: inherit;
