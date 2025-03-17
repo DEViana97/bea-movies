@@ -6,11 +6,12 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary';
   $variantType?: 'primary' | 'secondary';
   width?: string;
+  height?: string;
 }
 
 // Estilização com Styled Components
 export const StyledButton = styled.button<ButtonProps>`
-  padding: 1rem;
+  padding: .5rem 1rem;
   border-radius: 8px;
   border: none;
   cursor: pointer;
@@ -18,6 +19,7 @@ export const StyledButton = styled.button<ButtonProps>`
   color: #E0E9FF; /* Cor do texto igual ao label */
   transition: background-color 0.2s;
   width: ${({ width }) => (width ? width : '100%')};
+  height: ${({ height }) => (height ? height : '100%')};
 
   /* Estilos por variante */
   ${({ variant }) =>
@@ -32,7 +34,7 @@ export const StyledButton = styled.button<ButtonProps>`
         background-color: transparent;
         border: 2px solid rgba(144,148,133,0.3);
         &:hover {
-          background-color: rgba(144, 148, 133, 0.1); /* Hover leve */
+          background-color: rgba(144, 148, 133, 0.2); /* Hover leve */
         }
       `}
 `;

@@ -4,13 +4,14 @@ import { ButtonProps, StyledButton } from './Button.styled';
 
 export function Button({
   children,
-  variant = 'primary',
+  variant,
   width,
-  type = 'submit',
+  type,
+  height,
   ...props
 }: ButtonProps) {
   return (
-    <StyledButton $variantType={variant} width={width} type={type} {...props}>
+    <StyledButton $variantType={variant} width={width} height={height} type={type} {...props}>
       {children}
     </StyledButton>
   );
