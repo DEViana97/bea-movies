@@ -32,8 +32,8 @@ export default function useFetchMovies(type: string) {
       setLoading(true);
       try {
         const response = await movieService.getMoviesTMDB(type,params);
-        console.log(response.data);
-        setMoviesTMDB(response.data);
+        console.log(response);
+        setMoviesTMDB(response.results);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error fetching event types');
       } finally {
@@ -51,5 +51,5 @@ export default function useFetchMovies(type: string) {
       fetchMoviesList();
     }, [fetchMoviesList]); 
 
-  return { loadingData, error, fetchMoviesList, moviesList };
+  return { loadingData, error, fetchMoviesList, moviesList, moviesTMDB };
 }
