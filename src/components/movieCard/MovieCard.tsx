@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { MovieTMDB } from '../../interface/movie';
 import styled from 'styled-components';
 import StarRating from '../starRating/StarRating';
+import { Button } from '../button/Button';
 
 interface CardProps {
   movie: MovieTMDB;
@@ -47,8 +48,10 @@ flex-direction: column;
 justify-content: end;
 padding: 10px;
 background: linear-gradient(#00000000, #000 90%);
-& > p {
-  font: 12px;
+
+
+& .movie-description {
+  font-size: 12px;
   color: #fff;
 }
 
@@ -63,26 +66,27 @@ opacity: 0;
 transition: all.3s;
 `
 
-export default function MovieCard({movie}: CardProps) {
+export default function MovieCard({ movie }: CardProps) {
   return (
     <MovieCardContainer>
       <MovieImageContainer>
         <MovieImage
-          src={movie.poster_path ? `https://image.tmdb.org/t/p/original/${movie.poster_path}` : '/default-image.svg'}
+          src={movie.poster_path ? `${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.poster_path}` : '/default-image.svg'}
           alt={movie.title}
-          height={200}
+          height={250}
           width={200}
-          style={{objectFit: 'cover'}}
+          style={{ objectFit: 'cover' }}
           priority
         />
       </MovieImageContainer>
       <MovieInfo>
         <p>{movie.title}</p>
-          <StarRating rating={movie.vote_average} />
-        <MovieHiddenInfo className="hidden-info">
-          {movie.overview && <p>{movie.overview.length > 100 ? `${movie.overview.substring(0, 100)}` : movie.overview}</p>}
-          <button>Ver mais</button>
-        </MovieHiddenInfo>
+        <StarRating rating={movie.vote_average} />
+        {movie.overview &&
+          <MovieHiddenInfo className="hidden-info">
+            <p className='movie-description'>{movie.overview.length > 100 ? `${movie.overview.substring(0, 100)}...` : movie.overview}</p>
+            <Button variant='primary' width='100px' height='35px'>Ver mais</Button>
+          </MovieHiddenInfo>}
       </MovieInfo>
     </MovieCardContainer>
   )
