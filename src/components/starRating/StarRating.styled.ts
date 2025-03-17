@@ -8,7 +8,7 @@ interface StarRatingProps {
 export const StarRatingContainer = styled.div<StarRatingProps>`
     display: flex;
     flex-direction: row-reverse;
-    justify-content: center;
+    justify-content: left;
     gap: 4px;
 
 
@@ -17,10 +17,9 @@ export const StarRatingContainer = styled.div<StarRatingProps>`
   }
 
   & label {
-    font-size: 30px;
+    font-size: 1rem;
     cursor: pointer;
     color: gray;
-    padding: 4px;
     transition: color 0.3s;
   }
 
