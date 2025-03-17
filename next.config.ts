@@ -5,12 +5,25 @@
 //   }
 // };
 
+import { Images } from "lucide-react";
+
 // export default nextConfig;
 
 const nextConfig = {  
   reactStrictMode: false, // Ativa o Strict Mode para ajudar na detecção de problemas
   compiler: {
     styledComponents: true, // Ativa suporte ao styled-components
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'image.tmdb.org',
+        port: '',
+        pathname: '/t/p/original/**', // Allow any path under /t/p/original
+        search: '',
+      },
+    ],
   },
   // images: {
   //   domains: ['example.com', 'cdn.example.com'], // Permite carregar imagens de domínios externos
