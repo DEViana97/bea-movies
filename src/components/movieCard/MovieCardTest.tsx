@@ -379,15 +379,15 @@ import styled from 'styled-components';
 const Card: React.FC<CardProps> = ({ movies }) => {
   return (
     <StyledWrapper>
-      {movies.map((movie) => (
+      {/* {movies.map((movie) => (
         <StyledCard $imageUrl={movie.image} key={movie.id}>
           <div className="card__content">
             <p className="card__title">{movie.name}</p>
-            <p className="card__title">asaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
+            <p className="card__title"></p>
             <StarRating initialRating={movie.starRating} />
           </div>
         </StyledCard>
-      ))}
+      ))} */}
     </StyledWrapper>
   );
 };
