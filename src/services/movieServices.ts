@@ -7,7 +7,9 @@ export const movieService = {
     return await api.get(url);
   },
   getMoviesTMDB: async (type: string, params?: Params) => {
-    const url = params ? `/${type}?${params}&language=pt-BR` : `/${type}?&language=pt-BR`;
+    const newParams = new URLSearchParams(params);
+    newParams.append('language', 'pt-BR');
+    const url = params ? `/${type}?${newParams}` : `/${type}?${newParams}`;
     return await api.getMoviesTMDB(url);
   }
 };
