@@ -5,3 +5,12 @@ export interface Movie {
   status: boolean;
   starRating: number;
 }
+
+export interface MovieTMDB {
+  id: number;
+  title: string;
+  poster_path: string;
+  vote_average: number;
+  release_date: string;
+  overview: string;
+}

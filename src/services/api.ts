@@ -14,6 +14,19 @@ export const api = {
     }
     return response.json();
   },
+  getMoviesTMDB: async (type: string) => {
+    const token = process.env.NEXT_PUBLIC_API_KEY;
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL_TMDB}${type}`, {
+      headers: {
+        'Content-Type': 'application/json',
+         Authorization: `Bearer ${token}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    return response.json();
+  },
   post: async (url: string, data: any) => {
     const token = Cookies.get('token');
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}${url}`, {
