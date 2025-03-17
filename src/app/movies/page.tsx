@@ -1,7 +1,6 @@
 'use client'
 import React from 'react'
 import useFetchMovies from '../../hooks/useFetchMovies'
-import MovieCard from '../../components/movieCard/MovieCard';
 import HamsterLoading from '../../components/hamsterLoading/HamsterLoading';
 import Card from '../../components/movieCard/MovieCardTest';
 
