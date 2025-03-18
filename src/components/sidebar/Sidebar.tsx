@@ -14,7 +14,7 @@ function renderIcons(icon: string) {
     case "Pesquisar":
       return <Search />;
     case "Assistir mais tarde":
-      return <Bookmark/>;
+      return <Bookmark />;
     case "Assistidos":
       return <BookmarkCheck />;
     default:
@@ -75,7 +75,8 @@ const NavButton = styled.button<{ $isOpen: boolean }>`
   align-items: center;
   height: 44px;
   width: ${({ $isOpen }) => ($isOpen ? "100%" : "44px")};
-  font-size: 14px;
+  font-size: 12px;
+  font-weight: bold;
   text-transform: capitalize;
   padding: 0 12px;
   border-radius: 8px;
@@ -100,7 +101,7 @@ const Sidebar = () => {
         <Header>
           <BurgerButton onClick={() => setIsOpen(!isOpen)}>
             <span className="material-symbols-outlined">
-              {isOpen ? <X/> : <Menu/>}
+              {isOpen ? <X /> : <Menu />}
             </span>
           </BurgerButton>
         </Header>
@@ -108,7 +109,7 @@ const Sidebar = () => {
           {navItems.map((item) => (
             <NavButton key={item} $isOpen={isOpen}>
               <span className="material-symbols-outlined">{renderIcons(item)}</span>
-              {isOpen && <p>{item}</p>}
+              {isOpen && <span>{item}</span>}
             </NavButton>
           ))}
         </Nav>
