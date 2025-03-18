@@ -7,11 +7,13 @@ interface MovieListProps {
 }
 function MovieList({movies}: MovieListProps) {
   return (
-    <ul style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, 200px)', gap: '16px', listStyle: 'none', width: '100%', justifyContent: 'center', alignItems: 'center', padding: '1rem 0'}}>
-      {movies.map((movie) => (
-        <MovieCard key={movie.id} movie={movie} />
-      ))}
-    </ul>
+    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100vw'}}>
+      <ul style={{display: 'grid', gridTemplateColumns: 'repeat(auto-fill, 200px)', gap: '16px', listStyle: 'none', width: '90vw', justifyContent: 'end', alignItems: 'center', padding: '20px 0'}}>
+        {movies.map((movie) => (
+          <MovieCard key={movie.id} movie={movie} />
+        ))}
+      </ul>
+    </div>
   )
 }
 
