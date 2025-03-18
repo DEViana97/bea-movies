@@ -12,8 +12,8 @@ export default function MoviesPage() {
     return <HamsterLoading />
   }
   return (
-    <div>
-      <MovieList movies={moviesTMDB} />
-    </div>
+
+    <MovieList movies={moviesTMDB} />
+
   )
 }
