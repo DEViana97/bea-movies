@@ -3,7 +3,7 @@ export const Routes = {
   home: '/',
   login: '/login',
   logout: '/logout',
-  report: '/report',
+  movies: 'movies/',
   settings: '/settings/',
   signup: '/signup',
   profile: '/profile',
