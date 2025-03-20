@@ -1,11 +1,14 @@
+'use client'
 import { useState } from "react";
-import styled from "styled-components";
-import Image from "next/image";
 import { Bookmark, BookmarkCheck, House, Search, X, Menu } from 'lucide-react';
+import { Routes } from "../../config/routes";
+import { BurgerButton, Header, Inner, Nav, NavButton, SidebarContainer } from "./Sidebar.styled";
 
 
 
-const navItems = ["Inicio", "Pesquisar", "Assistir mais tarde", "Assistidos"];
+const Sidebar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const navItems = ["Inicio", "Pesquisar", "Assistir mais tarde", "Assistidos"];
 
 function renderIcons(icon: string) {
   switch (icon) {
@@ -22,78 +25,20 @@ function renderIcons(icon: string) {
   }
 }
 
-
-const SidebarContainer = styled.aside<{ $isOpen: boolean }>`
-  position: absolute;
-  z-index: 2;
-  top: 20px;
-  left: 20px;
-  bottom: 20px;
-  border-radius: 8px;
-  width: ${({ $isOpen }) => ($isOpen ? "190px" : "56px")};
-  background: rgba(0, 0, 0, 0.25);
-  backdrop-filter: blur(10px);
-  transition: width 0.45s;
-`;
-
-const Inner = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 190px;
-`;
-
-const Header = styled.header`
-  display: flex;
-  align-items: center;
-  height: 64px;
-  padding: 0 6px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-`;
-
-const BurgerButton = styled.button`
-  width: 44px;
-  height: 72px;
-  display: grid;
-  place-items: center;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #f9f9f9;
-`;
-
-const Nav = styled.nav`
-  display: grid;
-  padding: 0 6px;
-  gap: 2px;
-`;
-
-const NavButton = styled.button<{ $isOpen: boolean }>`
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  height: 44px;
-  width: ${({ $isOpen }) => ($isOpen ? "100%" : "44px")};
-  font-size: 12px;
-  font-weight: bold;
-  text-transform: capitalize;
-  padding: 0 12px;
-  border-radius: 8px;
-  opacity: 0.7;
-  color: #f9f9f9;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: background 0.25s, opacity 0.25s;
-  &:hover {
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 1;
+function generateRoutesPath(title: string) {
+  switch (title) {
+    case "Inicio":
+      return `${Routes.home}`;
+    case "Pesquisar":
+      return `${Routes.movies}search`;
+    case "Assistir mais tarde":
+      return `${Routes.movies}watchLater`;
+    case "Assistidos":
+      return `${Routes.movies}watched`;
+    default:
+      return `${Routes.home}`;
   }
-`;
-
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+}
 
   return (
     <SidebarContainer $isOpen={isOpen}>
@@ -107,7 +52,7 @@ const Sidebar = () => {
         </Header>
         <Nav>
           {navItems.map((item) => (
-            <NavButton key={item} $isOpen={isOpen}>
+            <NavButton passHref href={`/${generateRoutesPath(item)}`} key={item} $isOpen={isOpen}>
               <span className="material-symbols-outlined">{renderIcons(item)}</span>
               {isOpen && <span>{item}</span>}
             </NavButton>
