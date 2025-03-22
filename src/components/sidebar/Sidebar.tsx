@@ -1,12 +1,14 @@
 'use client'
 import { useState } from "react";
-import { Bookmark, BookmarkCheck, House, Search, X, Menu } from 'lucide-react';
+import { Bookmark, BookmarkCheck, House, Search, X, Menu, LogOut  } from 'lucide-react';
 import { Routes } from "../../config/routes";
-import { BurgerButton, Header, Inner, Nav, NavButton, SidebarContainer } from "./Sidebar.styled";
+import { BurgerButton, ButtonContainer, Header, Inner, Nav, NavButton, SidebarContainer } from "./Sidebar.styled";
+import { useAuth } from "../../contex/authContext";
 
 
 
 const Sidebar = () => {
+  const { logout } = useAuth ();
   const [isOpen, setIsOpen] = useState(false);
   const navItems = ["Inicio", "Pesquisar", "Assistir mais tarde", "Assistidos"];
 
@@ -51,12 +53,20 @@ function generateRoutesPath(title: string) {
           </BurgerButton>
         </Header>
         <Nav>
-          {navItems.map((item) => (
-            <NavButton passHref href={`/${generateRoutesPath(item)}`} key={item} $isOpen={isOpen}>
-              <span className="material-symbols-outlined">{renderIcons(item)}</span>
-              {isOpen && <span>{item}</span>}
-            </NavButton>
-          ))}
+          <div>
+            {navItems.map((item) => (
+              <NavButton passHref href={`/${generateRoutesPath(item)}`} key={item} $isOpen={isOpen}>
+                <span className="material-symbols-outlined">{renderIcons(item)}</span>
+                {isOpen && <span>{item}</span>}
+              </NavButton>
+            ))}
+          </div>
+          <ButtonContainer $isOpen={isOpen}>
+            <button onClick={() => logout()}>
+            <span className="material-symbols-outlined"><LogOut/></span>
+            {isOpen && <span>Sair</span>}
+            </button>
+          </ButtonContainer>
         </Nav>
       </Inner>
     </SidebarContainer>
