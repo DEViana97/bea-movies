@@ -4,7 +4,7 @@ import { Params } from '../interface/params';
 import { Movie } from '../interface/movie';
 
 
-export default function useFetchMovies(type: string, params?: Params) {
+export default function useFetchMovies(type: string, searchBy: string ,params?: Params) {
   const [moviesList, setMoviesList] = useState<Movie[]>([]);
   const [loadingData, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -37,10 +37,10 @@ export default function useFetchMovies(type: string, params?: Params) {
   );
 
   const fetchTMDBMoviesList = useCallback(
-    async (type: string, params?: Params) => {
+    async (type: string, searchBy: string ,params?: Params) => {
       setLoading(true);
       try {
-        const response = await movieService.getMoviesTMDB(type, {...params, language: 'pt-BR'});
+        const response = await movieService.getMoviesTMDB(type, searchBy, {...params, language: 'pt-BR'});
         console.log(response);
         setMoviesTMDB(response.results);
         setMetaData({
@@ -54,10 +54,10 @@ export default function useFetchMovies(type: string, params?: Params) {
         setLoading(false);
       }
     },
-    [type, params] // 🔥 Removemos `type` das dependências
+    [type, searchBy, params] // 🔥 Removemos `type` das dependências
   );
   useEffect(() => {
-    fetchTMDBMoviesList(type);
+    fetchTMDBMoviesList(type, searchBy);
   }, [fetchTMDBMoviesList ]);
     
 
