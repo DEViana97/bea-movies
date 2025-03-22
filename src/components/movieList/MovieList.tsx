@@ -1,56 +1,58 @@
-import React, { Suspense, useEffect, useState } from 'react'
-import { MovieTMDB } from '../../interface/movie'
-import MovieCard from '../movieCard/MovieCard';
-import Pagination, { ItemsPerPage } from '../pagination/Pagination';
-import { Params } from '../../interface/params';
-import HamsterLoading from '../hamsterLoading/HamsterLoading';
-
+import React, { Suspense, useEffect, useState } from "react";
+import MovieCard from "../movieCard/MovieCard";
+import Pagination, { ItemsPerPage } from "../pagination/Pagination";
+import HamsterLoading from "../hamsterLoading/HamsterLoading";
+import useFetchMovies from "../../hooks/useFetchMovies";
+import { MovieContainer, MovieListWrapper } from "./MovieList.styled";
 
 interface MovieListProps {
-  movies: MovieTMDB[];
   type: string;
-  fetchMoviesList: (type: string, params?: Params) => void;
-  metaData: any;
-  loadingData: boolean;
+  searchBy: string;
+  title?: string;
+  layout?: "grid" | "flex";
 }
-function MovieList({ movies, type, fetchMoviesList, metaData, loadingData }: MovieListProps) {
+
+function MovieList({
+  layout = "grid",
+  type,
+  searchBy,
+  title,
+}: MovieListProps) {
+  const { loadingData, moviesTMDB, fetchTMDBMoviesList, metaData } = useFetchMovies(type, searchBy);
+
   const [activePaginationPage, setActivePaginationPage] = useState(1);
-  const [searchBoxQuery, setSearchBoxQuery] = useState<string>("");
   const [itemsPerPage, setItemsPerPage] = useState(ItemsPerPage.twenty);
 
-
   useEffect(() => {
-    fetchMoviesList(type, {
+    fetchTMDBMoviesList(type, searchBy, {
       page: activePaginationPage,
-    })
+    });
   }, [activePaginationPage]);
-
-  // if (loadingData) {
-  //   return <HamsterLoading />
-  // }
-
-
 
   return (
     <Suspense fallback={<HamsterLoading />}>
       {loadingData ? (
-        <HamsterLoading />) : (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', width: '100vw' }}>
-          <ul style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, 200px)', gap: '16px', listStyle: 'none', width: '90vw', justifyContent: 'end', alignItems: 'center', padding: '20px 0' }}>
-            {movies.map((movie) => (
+        <HamsterLoading />
+      ) : (
+        <MovieContainer layout={layout}>
+          {layout === 'flex' && <h1>{title}</h1>}
+          <MovieListWrapper layout={layout}>
+            {moviesTMDB.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}
-          </ul>
-          <Pagination
-            currentPage={activePaginationPage}
-            setCurrentPage={setActivePaginationPage}
-            totalItens={metaData.total_results}
-            itemsPerPage={itemsPerPage}
-          />
-        </div>
+          </MovieListWrapper>
+          {layout === "grid" && (
+            <Pagination
+              currentPage={activePaginationPage}
+              setCurrentPage={setActivePaginationPage}
+              totalItens={metaData.total_results}
+              itemsPerPage={itemsPerPage}
+            />
+          )}
+        </MovieContainer>
       )}
     </Suspense>
-  )
+  );
 }
 
-export default MovieList
+export default MovieList;
