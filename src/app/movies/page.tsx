@@ -6,7 +6,7 @@ import MovieList from '../../components/movieList/MovieList';
 export default function MoviesPage() {
   const [type, setType] = React.useState<'movie' | 'tv'>('movie');
   return (
-    <div style={{ width: '100vw', display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+    <>
       <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', width: '100%', padding: '20px' }}>
         <button onClick={() => setType('movie')}>Filmes</button>
         <button onClick={() => setType('tv')}>Séries</button>
@@ -39,6 +39,6 @@ export default function MoviesPage() {
         searchBy="top_rated"
         layout="flex"
       />
-    </div>
+      </>
   )
 }
