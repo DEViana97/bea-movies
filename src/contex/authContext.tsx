@@ -22,7 +22,6 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  // const [user, setUser] = useState(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -43,9 +42,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     checkUserLoggedIn();
   }, []);
 
-  useEffect(() => {
-    console.log("useEffect user AuthProvider", user);
-  }, [user, loading]);
 
 
   const login = async (username: string, password: string) => {
@@ -53,19 +49,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setError(null);
     try {
       const loggedInUser = await authService.login(username, password); 
-      setUser(loggedInUser.data.user); 
       router.push('/movies');
+      setUser(loggedInUser.data.user);
     } catch (err: any) {
       setError(err.message);
       setLoading(false);
       setUser(null);
-    }
+    } 
   };
 
-  const logout = () => {
-    authService.logout();
-    setUser(null);
-    router.push('/login');
+  const logout = async () => {
+    setLoading(true);
+    try {
+      authService.logout();
+      setUser(null);
+      router.push('/login');
+    } catch (err: any) {
+      setError(err.message);
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
