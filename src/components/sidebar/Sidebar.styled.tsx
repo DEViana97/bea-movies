@@ -53,6 +53,7 @@ export const NavButton = styled(Link)<{ $isOpen: boolean }>`
   display: flex;
   gap: 12px;
   align-items: center;
+  justify-content: ${({ $isOpen }) => ($isOpen ? "flex-start" : "center")};
   height: 44px;
   width: ${({ $isOpen }) => ($isOpen ? "100%" : "44px")};
   font-size: 0.75rem;
