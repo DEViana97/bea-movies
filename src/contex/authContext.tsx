@@ -57,6 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       router.push('/movies');
     } catch (err: any) {
       setError(err.message);
+      setLoading(false);
       setUser(null);
     }
   };
