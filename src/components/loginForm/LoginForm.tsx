@@ -79,6 +79,7 @@ export default function LoginForm() {
             <div>
               <LoginButton
                 handleSubmit={handleSubmit}
+                disabled={password.length === 0 || username.length === 0}
               />
             </div>
           </form>

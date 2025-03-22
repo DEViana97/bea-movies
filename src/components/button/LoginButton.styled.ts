@@ -1,113 +1,128 @@
 import styled from 'styled-components';
 
 export const StyledWrapper = styled.div`
-  .btn-conteiner {
     display: flex;
     justify-content: center;
     width: 100%;
-    --color-text: ${props => props.theme.textOn.selected};
-    --color-background: transparent;
-    --color-outline: #ff145b80;
-    --color-shadow: #00000080;
-  }
-
-  .btn-content {
-    display: flex;
     align-items: center;
-    padding: 0.3125rem 1.875rem;
-    text-decoration: none;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    font-size: 30px;
-    color: var(--color-text);
-    background: var(--color-background);
-    transition: 1s;
-    border-radius: 8px;
-    border: 1px solid #AC1754;
-    box-shadow: 0 0 0.2em 0 var(--color-background);
-  }
-  
-  .btn-content .btn-title {
-    font-size: 0.975rem;
-  }
-
-  .btn-content:hover, .btn-content:focus {
-    transition: 0.5s;
-    -webkit-animation: btn-content 1s;
-    animation: btn-content 1s;
-    outline: 0.1em solid transparent;
-    outline-offset: 0.2em;
-    box-shadow: 0 0 0.4em 0 var(--color-background);
-  }
-
-  .btn-content .icon-arrow {
-    transition: 0.5s;
-    transform: scale(0.6);
-  }
-
-  .btn-content:hover .icon-arrow {
-    transition: 0.5s;
-    margin-right: 1.25rem;
-  }
-
-  .icon-arrow {
-    width: 1.25rem;
-    margin-left: 0.9375rem;
+  .login-button {
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.7rem 2.4rem;
+    border-radius: 1.5rem;
     position: relative;
-    top: 6%;
+    background-color: ${props => props.theme.barbieTheme.defaultTransparent};
+    box-shadow: 1px 1px 1px 1px ${props => props.theme.barbieTheme.default};
+    color: ${props => props.theme.barbieTheme.disabled};
+    border: none;
+    text-shadow: 0 0 3px #ff6e6e;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.7s;
+    z-index: 2;
   }
 
-  /* SVG */
-  #arrow-icon-one {
-    transition: 0.4s;
-    transform: translateX(-60%);
+  .login-button[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 
-  #arrow-icon-two {
-    transition: 0.5s;
-    transform: translateX(-30%);
+  .login-button:hover .heart1 svg,
+  .login-button:hover .heart2 svg,
+  .login-button:hover .heart3 svg {
+    opacity: 1;
+    filter: drop-shadow(0 0 10px #ff6e6e)
   }
 
-  .btn-content:hover #arrow-icon-three {
-    animation: color_anim 1s infinite 0.2s;
+  .login-button:hover {
+    color: red;
+    box-shadow: 0 0 10px inset #ff6e6e;
+    scale: 105%;
   }
 
-  .btn-content:hover #arrow-icon-one {
-    transform: translateX(0%);
-    animation: color_anim 1s infinite 0.6s;
+  .login-button:active {
+    scale: 100%;
   }
 
-  .btn-content:hover #arrow-icon-two {
-    transform: translateX(0%);
-    animation: color_anim 1s infinite 0.4s;
+  .heart1 svg {
+    position: absolute;
+    left: 4.5rem;
+    top: 1.8rem;
+    opacity: 0;
+    fill: red;
+    stroke: none;
+    transition: 0.7s;
+    width: 2rem;
+    height: 2rem;
+    animation: move1 5s ease-in-out infinite alternate-reverse;
   }
 
-  /* SVG animations */
-  @keyframes color_anim {
+  .heart2 svg {
+    position: absolute;
+    left: 0.8rem;
+    opacity: 0;
+    top: 0.3rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: red;
+    stroke: none;
+    transform: rotate(-20deg );
+    animation: move2 5s ease infinite alternate-reverse;
+  }
+
+  .heart3 svg {
+    position: absolute;
+    right: 1rem;
+    top: 0.5rem;
+    opacity: 0;
+    width: 1.4rem;
+    height: 1.4rem;
+    transform: rotate(20deg);
+    fill: red;
+    stroke: none;
+    z-index: -1;
+    animation: move3 5s ease infinite alternate-reverse;
+  }
+
+  @keyframes move1 {
     0% {
-      fill: white;
+      top: 2rem;
     }
 
     50% {
-      fill: var(--color-background);
+      top: 4rem;
     }
 
     100% {
-      fill: white;
+      top: 2rem;
     }
   }
 
-  /* Login animations */
-  @-webkit-keyframes btn-content {
+  @keyframes move2 {
     0% {
-      outline: 0.2em solid var(--color-background);
-      outline-offset: 0;
+      top: 0.3rem;
+    }
+
+    50% {
+      top: 1.5rem;
+    }
+
+    100% {
+      top: 0.3rem;
     }
   }
 
-  @keyframes btn-content {
+  @keyframes move3 {
     0% {
-      outline: 0.2em solid var(--color-background);
-      outline-offset: 0;
+      top: 1.5rem;
     }
-  }`;
+
+    50% {
+      top: .6rem;
+    }
+
+    100% {
+      top: 1.5rem;
+    }
+  }
+`;
