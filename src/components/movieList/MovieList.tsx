@@ -3,7 +3,7 @@ import MovieCard from "../movieCard/MovieCard";
 import Pagination, { ItemsPerPage } from "../pagination/Pagination";
 import HamsterLoading from "../hamsterLoading/HamsterLoading";
 import useFetchMovies from "../../hooks/useFetchMovies";
-import { MovieContainer, MovieListWrapper } from "./MovieList.styled";
+import { MovieContainer, MovieListContainer, MovieListWrapper } from "./MovieList.styled";
 
 interface MovieListProps {
   type: string;
@@ -34,6 +34,7 @@ function MovieList({
       {loadingData ? (
         <HamsterLoading />
       ) : (
+        <MovieListContainer>
         <MovieContainer layout={layout}>
           {layout === 'flex' && <h1>{title}</h1>}
           <MovieListWrapper layout={layout}>
@@ -50,6 +51,7 @@ function MovieList({
             />
           )}
         </MovieContainer>
+        </MovieListContainer>
       )}
     </Suspense>
   );

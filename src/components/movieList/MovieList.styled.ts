@@ -41,3 +41,15 @@ export const MovieListWrapper = styled.ul<{ layout: "grid" | "flex" }>`
   padding: 20px 0;
   width: 100%;
 `;
+
+export const MovieListContainer = styled.div`
+ width: 100vw;
+ display: flex;
+ justify-content: center;
+ flex-direction: column;
+ align-items: center;
+
+ @media (max-width: 820px) {
+  padding-left: 3rem;
+ }
+`
