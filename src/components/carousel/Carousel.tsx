@@ -97,7 +97,7 @@ interface EmblaCarouselProps {
 }
 
 function EmblaCarousel({ movies }: EmblaCarouselProps) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true })
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000 })])
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev()
