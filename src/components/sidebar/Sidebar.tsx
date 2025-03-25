@@ -44,7 +44,7 @@ function generateRoutesPath(title: string) {
 
   return (
     <SidebarContainer $isOpen={isOpen}>
-      <Inner>
+      <Inner $isOpen={isOpen}>
         <Header>
           <BurgerButton onClick={() => setIsOpen(!isOpen)}>
             <span className="material-symbols-outlined">
