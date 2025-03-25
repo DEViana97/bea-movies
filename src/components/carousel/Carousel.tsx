@@ -119,12 +119,15 @@ function EmblaCarousel({ movies }: EmblaCarouselProps) {
           {movies.map((movie) => (
             <div className="embla__slide" key={movie.id}>
               <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.backdrop_path}`}
-                  fill={true}
-                  quality={100}
-                  priority
-                  alt={movie.title} />
+                {movie.backdrop_path && (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.backdrop_path}`}
+                    fill={true}
+                    quality={100}
+                    priority
+                    alt={movie.title}
+                  />
+                )}
               </div>
               <div
                 className='embla__slide__content'
