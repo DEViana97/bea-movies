@@ -15,12 +15,13 @@ export const SidebarContainer = styled.aside<{ $isOpen: boolean }>`
   transition: width 0.45s;
 `;
 
-export const Inner = styled.div`
+export const Inner = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
-  width: 190px;
+  width: ${({ $isOpen }) => ($isOpen ? "190px" : "56px")};
   height: 100%;
+  
 `;
 
 export const Header = styled.header`
