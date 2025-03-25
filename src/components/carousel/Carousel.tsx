@@ -118,7 +118,7 @@ function EmblaCarousel({ movies }: EmblaCarouselProps) {
         <div className="embla__container">
           {movies.map((movie) => (
             <div className="embla__slide" key={movie.id}>
-              <div>
+              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
                 <Image
                   src={`${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.backdrop_path}`}
                   fill={true}
