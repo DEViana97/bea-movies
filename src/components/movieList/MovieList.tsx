@@ -35,9 +35,9 @@ function MovieList({
         <HamsterLoading />
       ) : (
         <MovieListContainer>
-        <MovieContainer layout={layout}>
+        <MovieContainer $layout={layout}>
           {layout === 'flex' && <h1>{title}</h1>}
-          <MovieListWrapper layout={layout}>
+          <MovieListWrapper $layout={layout}>
             {moviesTMDB.map((movie) => (
               <MovieCard key={movie.id} movie={movie} />
             ))}

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const MovieContainer = styled.div<{ layout: "grid" | "flex" }>`
+export const MovieContainer = styled.div<{ $layout: "grid" | "flex" }>`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -9,10 +9,10 @@ export const MovieContainer = styled.div<{ layout: "grid" | "flex" }>`
   padding-top: 20px;
 `;
 
-export const MovieListWrapper = styled.ul<{ layout: "grid" | "flex" }>`
-  display: ${(props) => (props.layout === "grid" ? "grid" : "flex")};
+export const MovieListWrapper = styled.ul<{ $layout: "grid" | "flex" }>`
+  display: ${(props) => (props.$layout === "grid" ? "grid" : "flex")};
   ${(props) =>
-    props.layout === "grid"
+    props.$layout === "grid"
       ? `
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 16px;
