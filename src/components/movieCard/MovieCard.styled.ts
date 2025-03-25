@@ -26,8 +26,8 @@ export const MovieImageContainer = styled.div`
 
 export const MovieImage = styled(Image)`
   object-fit: cover;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   transition: .3s;
   opacity: 1;
 `;
