@@ -2,15 +2,17 @@
 
 import React from 'react'
 import MovieList from '../../components/movieList/MovieList';
+import EmblaCarousel from '../../components/carousel/Carousel';
+import useFetchMovies from '../../hooks/useFetchMovies';
 
 export default function MoviesPage() {
   const [type, setType] = React.useState<'movie' | 'tv'>('movie');
+  const { moviesTMDB } = useFetchMovies(type, 'popular');
   return (
-    <>
-      <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', width: '100%', padding: '20px' }}>
-        <button onClick={() => setType('movie')}>Filmes</button>
-        <button onClick={() => setType('tv')}>Séries</button>
-      </div>
+    <> 
+        <EmblaCarousel
+        movies={moviesTMDB}
+        />
       {type !== 'tv' && (
         <MovieList
           type={type}
