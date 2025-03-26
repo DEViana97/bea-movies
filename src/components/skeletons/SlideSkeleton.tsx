@@ -12,25 +12,21 @@ const SlideSkeleton = () => {
 }
 
 const StyledWrapper = styled.div`
-  width: 100%;
+  width: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
   .card {
-    width: 80%;
-    text-align: center;
-    border-radius: .8rem;
-    background-color: white;
+    width: 100%;
     height: 350px;
+   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
+
   }
 
   .card__skeleton {
     background-image: linear-gradient(
   		90deg,
-  		#ccc 0px,
-  		rgb(229 229 229 / 90%) 40px,
-  		#ccc 80px
+  		#F7A8C4 0px,
+  		#F37199 40px,
+  		rgba(243, 113, 153, 0.7) 80px
   	);
     background-size: 300%;
     background-position: 100% 0;
