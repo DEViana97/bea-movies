@@ -1,41 +1,30 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-
-export const SidebarContainer = styled.aside<{ $isOpen: boolean }>`
+export const HeaderContainer = styled.header`
   position: fixed;
-  z-index: 2;
-  top: 1.25rem;
-  left: 1.25rem;
-  bottom: 1.25rem;
-  border-radius: 8px;
-  width: ${({ $isOpen }) => ($isOpen ? "190px" : "56px")};
-  background: rgba(243, 113, 153, 0.6);
-  backdrop-filter: blur(10px);
-  transition: width 0.45s;
-`;
-
-export const Inner = styled.div<{ $isOpen: boolean }>`
-  position: absolute;
   top: 0;
   left: 0;
-  width: ${({ $isOpen }) => ($isOpen ? "190px" : "56px")};
-  height: 100%;
-  
-`;
-
-export const Header = styled.header`
+  width: 100%;
+  height: 50px;
+  background: transparent;
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
-  height: 64px;
-  padding: 0 6px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
+  padding: 0 1rem;
+  z-index: 10;
+`;
+
+export const Inner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const BurgerButton = styled.button`
   width: 44px;
-  height: 72px;
+  height: 44px;
   display: grid;
   place-items: center;
   background: transparent;
@@ -46,59 +35,70 @@ export const BurgerButton = styled.button`
 
 export const Nav = styled.nav`
   display: flex;
-  flex-direction: column;
-  padding: 0 6px;
-  gap: 20rem;
-  height: 100%;
-`;
+  gap: 1.5rem;
 
-export const NavButton = styled(Link)<{ $isOpen: boolean }>`
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  justify-content: ${({ $isOpen }) => ($isOpen ? "flex-start" : "center")};
-  height: 44px;
-  width: ${({ $isOpen }) => ($isOpen ? "100%" : "44px")};
-  font-size: 0.75rem;
-  font-weight: bold;
-  text-transform: capitalize;
-  padding: 0 12px;
-  border-radius: 8px;
-  opacity: 0.7;
-  color: #f9f9f9;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  transition: background 0.25s, opacity 0.25s;
-  &:hover {
-    background: rgba(0, 0, 0, 0.3);
-    opacity: 1;
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
-export const ButtonContainer = styled.div<{ $isOpen: boolean }>`
- & button {
+export const NavButton = styled(Link)`
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
-  justify-content: center;
-  height: 44px;
-  width: ${({ $isOpen }) => ($isOpen ? "100%" : "44px")};
   font-size: 1rem;
   font-weight: bold;
   text-transform: capitalize;
-  padding: 0 12px;
+  padding: 10px 16px;
   border-radius: 8px;
-  opacity: 0.7;
+  opacity: 0.8;
   color: #f9f9f9;
   background: transparent;
-  border: none;
-  cursor: pointer;
+  text-decoration: none;
   transition: background 0.25s, opacity 0.25s;
   &:hover {
     background: rgba(0, 0, 0, 0.3);
     opacity: 1;
   }
- } 
+`;
 
-`
+export const ButtonContainer = styled.div`
+  & button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: bold;
+    text-transform: capitalize;
+    padding: 10px 16px;
+    border-radius: 8px;
+    opacity: 0.8;
+    color: #f9f9f9;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s, opacity 0.25s;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+      opacity: 1;
+    }
+  }
+`;
+
+export const AsideMenu = styled.aside<{ $isOpen: boolean }>`
+  position: fixed;
+  top: 64px;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: rgba(243, 113, 153, 0.9);
+  backdrop-filter: blur(10px);
+  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 0;
+  gap: 1rem;
+  transition: transform 0.3s ease-in-out;
+  z-index: 9;
+`;

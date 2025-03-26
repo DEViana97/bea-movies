@@ -1,76 +1,97 @@
-'use client'
-import { useState } from "react";
-import { Bookmark, BookmarkCheck, House, Search, X, Menu, LogOut  } from 'lucide-react';
+"use client";
+import { useState, useEffect } from "react";
+import { Bookmark, BookmarkCheck, House, Search, X, Menu, LogOut } from "lucide-react";
 import { Routes } from "../../config/routes";
-import { BurgerButton, ButtonContainer, Header, Inner, Nav, NavButton, SidebarContainer } from "./Sidebar.styled";
+import { BurgerButton, ButtonContainer, HeaderContainer, Inner, Nav, NavButton, AsideMenu } from "./Sidebar.styled";
 import { useAuth } from "../../contex/authContext";
 
-
-
-const Sidebar = () => {
-  const { logout } = useAuth ();
+const HeaderNav = () => {
+  const { logout } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const navItems = ["Inicio", "Pesquisar", "Assistir mais tarde", "Assistidos"];
 
-function renderIcons(icon: string) {
-  switch (icon) {
-    case "Inicio":
-      return <House />;
-    case "Pesquisar":
-      return <Search />;
-    case "Assistir mais tarde":
-      return <Bookmark />;
-    case "Assistidos":
-      return <BookmarkCheck />;
-    default:
-      return <House />;
-  }
-}
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+      if (window.innerWidth > 768) setIsOpen(false);
+    };
 
-function generateRoutesPath(title: string) {
-  switch (title) {
-    case "Inicio":
-      return `${Routes.home}`;
-    case "Pesquisar":
-      return `${Routes.movies}search`;
-    case "Assistir mais tarde":
-      return `${Routes.movies}watchLater`;
-    case "Assistidos":
-      return `${Routes.movies}watched`;
-    default:
-      return `${Routes.home}`;
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  function renderIcons(icon: string) {
+    switch (icon) {
+      case "Inicio":
+        return <House />;
+      case "Pesquisar":
+        return <Search />;
+      case "Assistir mais tarde":
+        return <Bookmark />;
+      case "Assistidos":
+        return <BookmarkCheck />;
+      default:
+        return <House />;
+    }
   }
-}
+
+  function generateRoutesPath(title: string) {
+    switch (title) {
+      case "Inicio":
+        return `${Routes.home}`;
+      case "Pesquisar":
+        return `${Routes.movies}search`;
+      case "Assistir mais tarde":
+        return `${Routes.movies}watchLater`;
+      case "Assistidos":
+        return `${Routes.movies}watched`;
+      default:
+        return `${Routes.home}`;
+    }
+  }
 
   return (
-    <SidebarContainer $isOpen={isOpen}>
-      <Inner $isOpen={isOpen}>
-        <Header>
-          <BurgerButton onClick={() => setIsOpen(!isOpen)}>
-            <span className="material-symbols-outlined">
+    <>
+      <HeaderContainer>
+        <Inner>
+          {isMobile && (
+            <BurgerButton onClick={() => setIsOpen(!isOpen)}>
               {isOpen ? <X /> : <Menu />}
-            </span>
-          </BurgerButton>
-        </Header>
-        <Nav>
-          <div>
-            {navItems.map((item) => (
-              <NavButton passHref href={`/${generateRoutesPath(item)}`} key={item} $isOpen={isOpen}>
-                <span className="material-symbols-outlined">{renderIcons(item)}</span>
-                {isOpen && <span>{item}</span>}
-              </NavButton>
-            ))}
-          </div>
-          <ButtonContainer $isOpen={isOpen}>
+            </BurgerButton>
+          )}
+          {!isMobile && (
+            <Nav>
+              {navItems.map((item) => (
+                <NavButton passHref href={`/${generateRoutesPath(item)}`} key={item}>
+                  {renderIcons(item)}
+                  <span>{item}</span>
+                </NavButton>
+              ))}
+            </Nav>
+          )}
+          <ButtonContainer>
             <button onClick={() => logout()}>
-            <span className="material-symbols-outlined"><LogOut/></span>
-            {isOpen && <span>Sair</span>}
+              <LogOut />
+              <span>Sair</span>
             </button>
           </ButtonContainer>
-        </Nav>
-      </Inner>
-    </SidebarContainer>
+        </Inner>
+      </HeaderContainer>
+
+      {isMobile && (
+        <AsideMenu $isOpen={isOpen}>
+          {navItems.map((item) => (
+            <NavButton passHref href={`/${generateRoutesPath(item)}`} key={item}>
+              {renderIcons(item)}
+              <span>{item}</span>
+            </NavButton>
+          ))}
+        </AsideMenu>
+      )}
+    </>
   );
 };
 
-export default Sidebar;
+export default HeaderNav;
