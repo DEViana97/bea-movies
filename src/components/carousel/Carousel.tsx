@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense, useCallback } from 'react'
+import React, { useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import styled from 'styled-components'
 import Autoplay from 'embla-carousel-autoplay'
@@ -8,21 +8,29 @@ import { ChevronRight, ChevronLeft } from 'lucide-react';
 import { MovieTMDB } from '../../interface/movie'
 import Image from 'next/image'
 import StarRating from '../starRating/StarRating'
-import SlideSkeleton from '../skeletons/SlideSkeleton'
 
 const CarouselContainer = styled.div`
-width: 100%;
+width: 100vw;
 display: flex;
 align-items: center;
 justify-content: center;
-padding: 20px;
 
 & .embla__viewport {
-  border-radius: 8px;
-  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.1);
-  height: 350px;
-  width: 80%;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
+  height: 70vh;
+  width: 100%;
   overflow: hidden;
+
+  @media (max-width: 820px) {
+    height: 30vh;
+  }
+
+  /* @media (max-width: 768px) {
+    height: 40vh;
+  }
+  @media (max-width: 500px) {
+    height: 30vh;
+  } */
 }
 
 & .embla__container {
@@ -43,7 +51,7 @@ padding: 20px;
     color: white;
     width: 350px;
     left: 2rem;
-    top: 15%;
+    top: 20%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,11 +93,12 @@ padding: 20px;
 
 
 @media (max-width: 768px) {
-  padding-left: 40px;
+  /* padding-left: 40px; */ 
+  
 }
 
 @media (max-width: 500px) {
-  padding-left: 60px;
+  /* padding-left: 60px; */
 }
 `
 
@@ -110,55 +119,40 @@ function EmblaCarousel({ movies, loadingData }: EmblaCarouselProps) {
   }, [emblaApi])
 
   return (
-    <Suspense fallback={<SlideSkeleton />}>
-      {loadingData ? (
-        <SlideSkeleton />
-      ) : (
-        <CarouselContainer className='embla'>
-          <div>
-            <button className="embla__prev" onClick={scrollPrev}>
-              {<ChevronLeft size={50} />}
-            </button>
-          </div>
-          <div className="embla__viewport" ref={emblaRef}>
-            <div className="embla__container">
-              {movies.map((movie) => (
-                <div className="embla__slide" key={movie.id}>
-                  <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                    {movie.backdrop_path && (
-                      <Image
-                        src={`${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.backdrop_path}`}
-                        fill={true}
-                        quality={100}
-                        priority
-                        alt={movie.title}
-                      />
-                    )}
-                  </div>
-                  <div
-                    className='embla__slide__content'
-                  >
-                    <h1 style={{ fontSize: '1.5rem' }}>{movie.title}</h1>
-                    <StarRating rating={movie.vote_average} />
-                    <p>{movie.overview.length > 100 ? `${movie.overview.substring(0, 200)}...` : movie.overview}</p>
-                    <div className='buttons__container'>
-                      <button style={{ padding: '.5rem 1rem', backgroundColor: 'transparent', border: '1px solid white', color: 'white', borderRadius: '5px' }}>Detalhes</button>
-                      <button style={{ padding: '.5rem 1rem', backgroundColor: 'transparent', border: '1px solid white', color: 'white', borderRadius: '5px' }}>Assistir Mais Tarde</button>
-                    </div>
-                  </div>
+    <CarouselContainer className='embla'>
+
+      <div className="embla__viewport" ref={emblaRef}>
+        <div className="embla__container">
+          {movies.map((movie) => (
+            <div className="embla__slide" key={movie.id}>
+              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                {movie.backdrop_path && (
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.backdrop_path}`}
+                    fill={true}
+                    quality={100}
+                    priority
+                    alt={movie.title}
+                  />
+                )}
+              </div>
+              <div
+                className='embla__slide__content'
+              >
+                <h1 style={{ fontSize: '1.5rem' }}>{movie.title}</h1>
+                <StarRating rating={movie.vote_average} />
+                <p>{movie.overview.length > 100 ? `${movie.overview.substring(0, 200)}...` : movie.overview}</p>
+                <div className='buttons__container'>
+                  <button style={{ padding: '.5rem 1rem', backgroundColor: 'transparent', border: '1px solid white', color: 'white', borderRadius: '5px' }}>Detalhes</button>
+                  <button style={{ padding: '.5rem 1rem', backgroundColor: 'transparent', border: '1px solid white', color: 'white', borderRadius: '5px' }}>Assistir Mais Tarde</button>
                 </div>
-              ))
-              }
+              </div>
             </div>
-          </div>
-          <div>
-            <button className="embla__next" onClick={scrollNext}>
-              {<ChevronRight size={50} />}
-            </button>
-          </div>
-        </CarouselContainer>
-      )}
-    </Suspense>
+          ))
+          }
+        </div>
+      </div>
+    </CarouselContainer>
   )
 }
 
