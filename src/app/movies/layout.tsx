@@ -1,13 +1,13 @@
 "use client"
 
-import Sidebar from "../../components/sidebar/Sidebar";
+import HeaderNav from "../../components/sidebar/Sidebar";
 
 
 
 export default function MoviesLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Sidebar/>
+      <HeaderNav/>
         <main>{children}</main>
     </>
   );
