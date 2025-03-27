@@ -15,5 +15,9 @@ export const movieService = {
       const queryString = new URLSearchParams(cleanParams).toString();
     const url = params ? `/${type}/${searchBy}?${queryString}` : `/${type}/${searchBy}?${queryString}`;
     return await api.getMoviesTMDB(url);
-  }
+  },
+  getAllTrendingTMDB: async () => {
+    return await api.getMoviesTMDB('/trending/all/week?language=pt-BR');
+  },
+  
 };
