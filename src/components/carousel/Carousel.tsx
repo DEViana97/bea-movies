@@ -17,13 +17,33 @@ justify-content: center;
 
 & .embla__viewport {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
-  height: 70vh;
+  height: 80vh;
   width: 100%;
   overflow: hidden;
 
   @media (max-width: 820px) {
-    height: 30vh;
   }
+  /* Small devices such as large phones (640px and up) */
+
+
+/* Medium devices such as tablets (768px and up) */
+@media only screen and (max-width: 768px) {
+  height: 40vh;
+}
+
+/* Large devices such as laptops (1024px and up) */
+@media only screen and (max-width: 1024px) {
+  height: 50vh;
+}
+
+/* Largest devices such as desktops (1280px and up) */
+@media only screen and (min-width: 1280px) {
+  height: 80vh;
+}
+
+@media only screen and (max-width: 600px) {
+  height: 25vh;
+}
 
   /* @media (max-width: 768px) {
     height: 40vh;
@@ -132,14 +152,14 @@ function EmblaCarousel({ movies, loadingData }: EmblaCarouselProps) {
                     fill={true}
                     quality={100}
                     priority
-                    alt={movie.title}
+                    alt={movie.title || movie.name}
                   />
                 )}
               </div>
               <div
                 className='embla__slide__content'
               >
-                <h1 style={{ fontSize: '1.5rem' }}>{movie.title}</h1>
+                <h1 style={{ fontSize: '1.5rem' }}>{movie.title ? movie.title : movie.name}</h1>
                 <StarRating rating={movie.vote_average} />
                 <p>{movie.overview.length > 100 ? `${movie.overview.substring(0, 200)}...` : movie.overview}</p>
                 <div className='buttons__container'>
