@@ -36,6 +36,10 @@ export default function useFetchMovies(type: string, searchBy: string ,params?: 
     [type, params]
   );
 
+  useEffect(() => {
+    fetchMoviesList();
+  }, [fetchMoviesList]);
+
   const fetchTMDBMoviesList = useCallback(
     async (type: string, searchBy: string ,params?: Params) => {
       setLoading(true);
@@ -59,11 +63,32 @@ export default function useFetchMovies(type: string, searchBy: string ,params?: 
   useEffect(() => {
     fetchTMDBMoviesList(type, searchBy);
   }, [fetchTMDBMoviesList ]);
-    
 
-    useEffect(() => {
-      fetchMoviesList();
-    }, [fetchMoviesList]); 
+  const fetchTrendingAllTMDB = useCallback(
+    async () => {
+      setLoading(true);
+      try {
+        const response = await movieService.getAllTrendingTMDB();
+        console.log(response);
+        setMoviesTMDB(response.results);
+        setMetaData({
+          page: response.page,
+          total_pages: response.total_pages,
+          total_results: response.total_results,
+        });
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Error fetching event types");
+      } finally {
+        setLoading(false);
+      }
+    },
+    []
+  );
 
-  return { loadingData, error, fetchMoviesList, moviesList, moviesTMDB, fetchTMDBMoviesList, metaData };
+  useEffect(() => {
+    fetchTrendingAllTMDB();
+  }, [fetchTrendingAllTMDB]);
+     
+
+  return { loadingData, error, fetchMoviesList, moviesList, moviesTMDB, fetchTMDBMoviesList, metaData, fetchTrendingAllTMDB };
 }
