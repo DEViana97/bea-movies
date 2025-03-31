@@ -4,9 +4,12 @@ import { Bookmark, BookmarkCheck, House, Search, X, Menu, LogOut } from "lucide-
 import { Routes } from "../../config/routes";
 import { BurgerButton, ButtonContainer, HeaderContainer, Inner, Nav, NavButton, AsideMenu } from "./Sidebar.styled";
 import { useAuth } from "../../contex/authContext";
+import { usePathname } from "next/navigation";
 
 const HeaderNav = () => {
   const { logout } = useAuth();
+  const pathname = usePathname();
+  const isActive = (path: string) => pathname === path;
   const [isOpen, setIsOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const navItems = ["Inicio", "Pesquisar", "Assistir mais tarde", "Assistidos"];
@@ -40,13 +43,13 @@ const HeaderNav = () => {
   function generateRoutesPath(title: string) {
     switch (title) {
       case "Inicio":
-        return `${Routes.home}`;
+        return `${Routes.movies}`;
       case "Pesquisar":
-        return `${Routes.movies}search`;
+        return `${Routes.movies}/search`;
       case "Assistir mais tarde":
-        return `${Routes.movies}watchLater`;
+        return `${Routes.movies}/watchLater`;
       case "Assistidos":
-        return `${Routes.movies}watched`;
+        return `${Routes.movies}/watched`;
       default:
         return `${Routes.home}`;
     }
@@ -64,7 +67,7 @@ const HeaderNav = () => {
           {!isMobile && (
             <Nav>
               {navItems.map((item) => (
-                <NavButton passHref href={`/${generateRoutesPath(item)}`} key={item}>
+                <NavButton $isActive={isActive(`/${generateRoutesPath(item)}`)} passHref href={`/${generateRoutesPath(item)}`} key={item}>
                   {renderIcons(item)}
                   <span>{item}</span>
                 </NavButton>

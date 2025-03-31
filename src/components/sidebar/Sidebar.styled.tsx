@@ -42,7 +42,7 @@ export const Nav = styled.nav`
   }
 `;
 
-export const NavButton = styled(Link)`
+export const NavButton = styled(Link)<{ $isActive?: boolean }>`
   display: flex;
   gap: 8px;
   align-items: center;
@@ -53,7 +53,7 @@ export const NavButton = styled(Link)`
   border-radius: 8px;
   opacity: 0.8;
   color: #f9f9f9;
-  background: transparent;
+  background: ${({ $isActive }) => ($isActive ? "rgba(0, 0, 0, 0.3)" : "transparent")};
   text-decoration: none;
   transition: background 0.25s, opacity 0.25s;
   &:hover {
