@@ -5,7 +5,7 @@ export const MovieContainer = styled.div<{ $layout: "grid" | "flex" }>`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  width: 80%;
+  width: 90%;
   padding-top: 20px;
 `;
 
@@ -48,8 +48,4 @@ export const MovieListContainer = styled.div`
  justify-content: center;
  flex-direction: column;
  align-items: center;
-
- @media (max-width: 820px) {
-  padding-left: 3rem;
- }
 `
