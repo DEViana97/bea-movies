@@ -60,6 +60,12 @@ export const NavButton = styled(Link)<{ $isActive?: boolean }>`
     background: rgba(0, 0, 0, 0.3);
     opacity: 1;
   }
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -90,15 +96,18 @@ export const AsideMenu = styled.aside<{ $isOpen: boolean }>`
   position: fixed;
   top: 64px;
   left: 0;
-  width: 250px;
+  width: ${({ $isOpen }) => ($isOpen ? "250px" : "0px")};
+  max-width: 250px;
   height: 100%;
-  background: rgba(243, 113, 153, 0.9);
+  background: transparent;
   backdrop-filter: blur(10px);
-  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1rem 0;
   gap: 1rem;
-  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+  transition: width 0.5s ease-in-out;
   z-index: 9;
 `;
+
