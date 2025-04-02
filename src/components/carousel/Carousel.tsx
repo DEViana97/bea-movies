@@ -42,7 +42,7 @@ justify-content: center;
 }
 
 @media only screen and (max-width: 600px) {
-  height: 25vh;
+  height: 30vh;
 }
 
   /* @media (max-width: 768px) {
