@@ -9,24 +9,16 @@ export default function MoviesPage() {
   const [type, setType] = React.useState<'movie' | 'tv'>('movie');
   const { moviesTMDB, loadingData } = useFetchMovies(type, 'popular');
   return (
-    <> 
-        <EmblaCarousel
+    <>
+      <EmblaCarousel
         movies={moviesTMDB}
         loadingData={loadingData}
-        />
+      />
       {type !== 'tv' && (
         <MovieList
           type={type}
           title="Próximos Lançamentos"
           searchBy="upcoming"
-          layout="flex"
-        />
-      )}
-      {type !== 'tv' && (
-        <MovieList
-          type={type}
-          title="Now Playing"
-          searchBy="now_playing"
           layout="flex"
         />
       )}
@@ -42,6 +34,12 @@ export default function MoviesPage() {
         searchBy="top_rated"
         layout="flex"
       />
-      </>
+      <MovieList
+        type={'tv'}
+        title="Top Rated Series"
+        searchBy="top_rated"
+        layout="flex"
+      />
+    </>
   )
 }
