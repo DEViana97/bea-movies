@@ -15,7 +15,7 @@ export default function MovieCard({ movie }: CardProps) {
       <MovieImageContainer>
         <MovieImage
           src={movie.poster_path ? `${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.poster_path}` : '/default-image.svg'}
-          alt={movie.overview}
+          alt={movie.title || movie.name}
           height={250}
           width={400}
           priority
