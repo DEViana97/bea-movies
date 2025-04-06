@@ -14,11 +14,14 @@ width: 100vw;
 display: flex;
 align-items: center;
 justify-content: center;
+background: rgb(247,168,196);
+background: linear-gradient(0deg, rgba(247,168,196,1) 0%, rgba(243,113,153,1) 100%);
+box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 
 & .embla__viewport {
   box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
   height: 80vh;
-  width: 100%;
+  width: 95%;
   overflow: hidden;
 
   @media (max-width: 820px) {
@@ -140,6 +143,9 @@ function EmblaCarousel({ movies, loadingData }: EmblaCarouselProps) {
 
   return (
     <CarouselContainer className='embla'>
+      <button>
+        <ChevronLeft onClick={scrollPrev} size={40} color='white' style={{ cursor: 'pointer' }} />
+      </button>
 
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
@@ -172,6 +178,9 @@ function EmblaCarousel({ movies, loadingData }: EmblaCarouselProps) {
           }
         </div>
       </div>
+      <button>
+        <ChevronRight onClick={scrollNext} size={40} color='white' style={{ cursor: 'pointer' }} />
+      </button>
     </CarouselContainer>
   )
 }
