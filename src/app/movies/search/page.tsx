@@ -1,10 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
-import { Input } from '../../../components/input/InputSimple'
-import { InputTypes } from '../../../components/input/Input'
 import useFetchMovies from '../../../hooks/useFetchMovies'
 import MovieSearchList from '../../../components/movieList/MovieSearchList'
 import { useDebouncedCallback } from 'use-debounce'
+import SearchInput from '../../../components/input/InputSimple'
 
 export default function SearchPage() {
   const [searchValue, setSearchValue] = useState<string>('');
@@ -25,8 +24,7 @@ export default function SearchPage() {
   return (
     <div style={{ padding: '70px 0' }}>
       <div>
-        <Input
-          typeInput={InputTypes.terciary}
+        <SearchInput
           placeholder="Pesquisar Filmes"
           name="search"
           id="search"
