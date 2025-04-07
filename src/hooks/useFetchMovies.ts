@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { movieService } from '../services/movieServices';
 import { Params } from '../interface/params';
-import { Movie } from '../interface/movie';
+import { Movie, MovieTMDB } from '../interface/movie';
 
 
 export default function useFetchMovies(type: string, searchBy: string ,params?: Params) {
   const [moviesList, setMoviesList] = useState<Movie[]>([]);
   const [loadingData, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [moviesTMDB, setMoviesTMDB] = useState<any[]>([]);
+  const [moviesTMDB, setMoviesTMDB] = useState<MovieTMDB[]>([]);
   const [metaData, setMetaData] = useState<{
     page: number;
     total_pages: number;

@@ -22,7 +22,7 @@ export default function MovieCard({ movie }: CardProps) {
         />
       </MovieImageContainer>
       <MovieInfo>
-        <p>{movie.title}</p>
+        <p>{movie.title || movie.name}</p>
         <StarRating rating={movie.vote_average} />
         {movie.overview &&
           <MovieHiddenInfo className="hidden-info">
