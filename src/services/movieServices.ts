@@ -19,5 +19,11 @@ export const movieService = {
   getAllTrendingTMDB: async () => {
     return await api.getMoviesTMDB('/trending/all/week?language=pt-BR');
   },
+  addMovieToWatchLater: async (data: any) => {
+    return await api.post(`/api/movies`, data);
+  },
+  removeMovieFromWatchLater: async (id: number) => {
+    return await api.delete(`/api/movies/${id}`);
+  },
   
 };
