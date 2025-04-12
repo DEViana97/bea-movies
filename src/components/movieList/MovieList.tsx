@@ -18,16 +18,11 @@ function MovieList({
   searchBy,
   title,
 }: MovieListProps) {
-  const { loadingData, moviesTMDB, fetchTMDBMoviesList, metaData } = useFetchMovies(type, searchBy);
+  const { loadingData, moviesTMDB, moviesList, metaData } = useFetchMovies(type, searchBy);
 
   const [activePaginationPage, setActivePaginationPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(ItemsPerPage.twenty);
 
-  useEffect(() => {
-    fetchTMDBMoviesList(type, searchBy, {
-      page: activePaginationPage,
-    });
-  }, [activePaginationPage]);
 
   return (
     <Suspense fallback={<HamsterLoading />}>
@@ -39,7 +34,7 @@ function MovieList({
           {layout === 'flex' && <h1>{title}</h1>}
           <MovieListWrapper $layout={layout}>
             {moviesTMDB.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+              <MovieCard moviesWatched={moviesList} key={movie.id} movie={movie} />
             ))}
           </MovieListWrapper>
           {layout === "grid" && (

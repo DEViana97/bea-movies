@@ -8,9 +8,22 @@ export const MovieCardContainer = styled.li`
   overflow: hidden;
   position: relative;
   cursor: pointer;
+
+  & .watch-later {
+   position: absolute;
+   top: 10px;
+   right: 10px;
+   z-index: 1 ;
+   display: none;
+   transition: all .3s;
+  }
   
   &:hover img {
     transform: scale(1.1);
+  }
+
+  &:hover .watch-later {
+    display: block;
   }
 
   &:hover .hidden-info {
