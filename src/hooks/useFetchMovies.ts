@@ -33,7 +33,7 @@ export default function useFetchMovies(type: string, searchBy: string ,params?: 
         setLoading(false);
       }
     },
-    [type, params]
+    [params]
   );
 
   useEffect(() => {
