@@ -5,9 +5,8 @@ import useEmblaCarousel from 'embla-carousel-react'
 import styled from 'styled-components'
 import Autoplay from 'embla-carousel-autoplay'
 import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { MovieTMDB } from '../../interface/movie'
-import Image from 'next/image'
-import StarRating from '../starRating/StarRating'
+import { Movie, MovieTMDB } from '../../interface/movie'
+import MovieSlide from '../movieSlide/MovieSlide'
 
 const CarouselContainer = styled.div`
 width: 100vw;
@@ -44,9 +43,6 @@ box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
   height: 80vh;
 }
 
-@media only screen and (max-width: 600px) {
-  height: 30vh;
-}
 
   /* @media (max-width: 768px) {
     height: 40vh;
@@ -128,9 +124,10 @@ box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.2);
 interface EmblaCarouselProps {
   movies: MovieTMDB[];
   loadingData?: boolean;
+  moviesWatched?: Movie[];
 }
 
-function EmblaCarousel({ movies, loadingData }: EmblaCarouselProps) {
+function EmblaCarousel({ movies, loadingData, moviesWatched }: EmblaCarouselProps) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true }, [Autoplay({ delay: 5000 })])
 
   const scrollPrev = useCallback(() => {
@@ -150,30 +147,7 @@ function EmblaCarousel({ movies, loadingData }: EmblaCarouselProps) {
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {movies.map((movie) => (
-            <div className="embla__slide" key={movie.id}>
-              <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-                {movie.backdrop_path && (
-                  <Image
-                    src={`${process.env.NEXT_PUBLIC_IMAGE_TMDB_HOST}${movie.backdrop_path}`}
-                    fill={true}
-                    quality={100}
-                    priority
-                    alt={movie.title || movie.name}
-                  />
-                )}
-              </div>
-              <div
-                className='embla__slide__content'
-              >
-                <h1 style={{ fontSize: '1.5rem' }}>{movie.title ? movie.title : movie.name}</h1>
-                <StarRating rating={movie.vote_average} />
-                <p>{movie.overview.length > 100 ? `${movie.overview.substring(0, 200)}...` : movie.overview}</p>
-                <div className='buttons__container'>
-                  <button style={{ padding: '.5rem 1rem', backgroundColor: 'transparent', border: '1px solid white', color: 'white', borderRadius: '5px' }}>Detalhes</button>
-                  <button style={{ padding: '.5rem 1rem', backgroundColor: 'transparent', border: '1px solid white', color: 'white', borderRadius: '5px' }}>Assistir Mais Tarde</button>
-                </div>
-              </div>
-            </div>
+            <MovieSlide moviesWatched={moviesWatched} key={movie.id} movie={movie} />
           ))
           }
         </div>

@@ -7,12 +7,13 @@ import useFetchMovies from '../../hooks/useFetchMovies';
 
 export default function MoviesPage() {
   const [type, setType] = React.useState<'movie' | 'tv'>('movie');
-  const { moviesTMDB, loadingData } = useFetchMovies(type, 'popular');
+  const { moviesTMDB, loadingData, moviesList } = useFetchMovies(type, 'popular');
   return (
     <>
       <EmblaCarousel
         movies={moviesTMDB}
         loadingData={loadingData}
+        moviesWatched={moviesList}
       />
       {type !== 'tv' && (
         <MovieList
