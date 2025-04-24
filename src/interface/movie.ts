@@ -12,7 +12,7 @@ export interface MovieTMDB {
   name: string;
   poster_path: string;
   vote_average: number;
-  release_date: string;
+  // release_date: string;
   overview: string;
   backdrop_path: string;
 }
